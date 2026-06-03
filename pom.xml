@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.techimport</groupId>
+    <artifactId>techimport-peru</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>TechImport Perú</name>
+    <description>
+        Plataforma e-commerce para la importación y venta de productos
+        tecnológicos internacionales.
+    </description>
+
+    <!--  Propiedades: versiones centralizadas y configuración general  -->
+    <properties>
+        <!-- Configuración general del proyecto -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+
+        <!-- Versiones de API Servlet / JSP / JSTL (Tomcat 9) -->
+        <servlet.api.version>4.0.1</servlet.api.version>
+        <jsp.api.version>2.3.3</jsp.api.version>
+        <jstl.version>1.2</jstl.version>
+
+        <!-- Base de datos -->
+        <mysql.connector.version>9.7.0</mysql.connector.version>
+
+        <!-- Utilidades -->
+        <guava.version>33.6.0-jre</guava.version>
+        <commons.lang3.version>3.20.0</commons.lang3.version>
+        <commons.codec.version>1.22.0</commons.codec.version>
+
+        <!-- Reportes (Apache POI) -->
+        <poi.version>5.5.1</poi.version>
+
+        <!-- Logging -->
+        <slf4j.version>2.0.18</slf4j.version>
+        <logback.version>1.5.34</logback.version>
+
+        <!-- Testing -->
+        <junit.jupiter.version>5.11.4</junit.jupiter.version>
+        <mockito.version>5.23.0</mockito.version>
+
+        <!-- Plugins -->
+        <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
+        <maven.war.plugin.version>3.4.0</maven.war.plugin.version>
+    </properties>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!--  Dependencias                                                  -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <dependencies>
+
+        <!-- ─────────────────────────────────────────────────────────── -->
+        <!--  API Servlet / JSP / JSTL  (proporcionadas por Tomcat 9)  -->
+        <!-- ─────────────────────────────────────────────────────────── -->
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>${jsp.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--
+          JSTL 1.2 — Biblioteca de etiquetas estándar para JSP.
+        -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+
+        <!-- ─────────────────────────────────────────────────────────── -->
+        <!--  Base de datos                                             -->
+
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql.connector.version}</version>
+        </dependency>
+
+        <!-- ─────────────────────────────────────────────────────────── -->
+        <!--  Utilidades                                                -->
+
+        <!--
+          Google Guava — Colecciones inmutables, caché, hashing,
+          Preconditions y más utilidades de uso general.
+        -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <!--
+          Apache Commons Lang 3 — Utilidades para Strings, números,
+          reflexión, builders (equals/hashCode/toString), etc.
+        -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons.lang3.version}</version>
+        </dependency>
+
+        <!--
+          Apache Commons Codec — Codificadores/decodificadores como
+          Base64, Hex, SHA-256 y otras funciones de hashing.
+        -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons.codec.version}</version>
+        </dependency>
+
+        <!-- ─────────────────────────────────────────────────────────── -->
+        <!--  Reportes — Apache POI                                     -->
+        <!-- ─────────────────────────────────────────────────────────── -->
+
+        <!--
+          Apache POI — Lectura/escritura de archivos Excel (.xls).
+          Usado para generar reportes de ventas e inventario.
+        -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+        <!--
+          Apache POI OOXML — Soporte para archivos Excel modernos
+          (.xlsx) basados en el formato Office Open XML.
+        -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+        <!-- ─────────────────────────────────────────────────────────── -->
+        <!--  Logging — SLF4J + Logback                                 -->
+        <!-- ─────────────────────────────────────────────────────────── -->
+
+        <!--
+          SLF4J API — Fachada de logging que desacopla el código
+          de la implementación concreta (Logback en este caso).
+        -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!--
+          Logback Classic — Implementación nativa de SLF4J.
+          Configuración vía logback.xml en src/main/resources.
+        -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <!-- ─────────────────────────────────────────────────────────── -->
+        <!--  Testing                                                   -->
+        <!-- ─────────────────────────────────────────────────────────── -->
+
+        <!--
+          JUnit Jupiter — Framework de pruebas unitarias JUnit 5.
+          Incluye jupiter-api, jupiter-engine y jupiter-params.
+        -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--
+          Mockito Core — Framework de mocking para aislar unidades
+          bajo prueba de sus dependencias externas.
+        -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--
+          Mockito JUnit Jupiter — Extensión que integra Mockito con
+          JUnit 5 (@ExtendWith(MockitoExtension.class)).
+        -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!--  Build: plugins de compilación y empaquetado                   -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <build>
+        <finalName>techimport-peru</finalName>
+
+        <plugins>
+            <!--
+              maven-compiler-plugin — Configura la compilación de
+              fuentes Java.  Usa Java 17 (LTS) como fuente y destino.
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <!--
+              maven-war-plugin — Empaqueta la aplicación como un
+              archivo WAR desplegable en Tomcat 9.
+              failOnMissingWebXml=false permite proyectos sin web.xml
+              (aunque este proyecto sí lo incluye).
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven.war.plugin.version}</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
+            <!--
+              Cargo Maven Plugin — Permite ejecutar un servidor Tomcat 9
+              local de forma automática sin necesidad de instalarlo en el SO.
+            -->
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven3-plugin</artifactId>
+                <version>1.10.13</version>
+                <configuration>
+                    <container>
+                        <containerId>tomcat9x</containerId>
+                        <type>installed</type>
+                        <zipUrlInstaller>
+                            <url>https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.88/bin/apache-tomcat-9.0.88.zip</url>
+                        </zipUrlInstaller>
+                    </container>
+                    <configuration>
+                        <properties>
+                            <cargo.servlet.port>8080</cargo.servlet.port>
+                        </properties>
+                    </configuration>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
